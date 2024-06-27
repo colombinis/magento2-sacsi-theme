@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <!-- remove blocks -->
+        <referenceBlock name="register-link" remove="true" />
+        <referenceBlock name="wish-list-link" remove="true" />
+        <referenceBlock name="header" remove="true" />
+        <referenceBlock name="advanced-search-link" remove="true" />
+        <referenceBlock name="authorization-link" remove="true" />
+        <referenceBlock name="my-account-link" remove="true" />
+        <referenceBlock name="top.links" remove="true" />
+        <referenceBlock name="store.links" remove="true" />
+        <!-- <referenceBlock name="minicart" remove="true" /> -->
+
+        <!-- move blocks -->
+        <move element="header.panel" destination="header-wrapper"/>
+        <move element="minicart" destination="sacsi_link_cart"/>
+
+        <!-- Logo  -->
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_file" xsi:type="string">images/logo_webfull.svg</argument>
+                <argument name="logo_alt" xsi:type="string">WebFull</argument>
+                <argument name="logo_img_width" xsi:type="number">60</argument>
+                <argument name="logo_img_height" xsi:type="number">220</argument>
+            </arguments>
+        </referenceBlock>
+        <!-- Notices -->
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Theme\Block\Html\Notices" name="global_notices" template="html/notices.phtml"/>
+        </referenceContainer>
+        <!-- Footer -->
+        <referenceContainer name="footer-container">
+            <block class="Magento\Theme\Block\Html\Footer" name="footer" template="html/footer.phtml"/>
+        </referenceContainer>
+
+        <!-- menu mobile -->
+        <referenceBlock name="navigation.sections">
+            <block class="Magento\Framework\View\Element\Template" name="store.micuenta" group="navigation-sections" template="Magento_Theme::html/container.phtml">
+                <arguments>
+                    <argument name="title" translate="true" xsi:type="string">Mi cuenta</argument>
+                </arguments>
+
+                <container name="sacsi_mobile_container" as="sacsi_mobile_container" label="Sacsi mobile menu" htmlTag="div" htmlClass="sacsi-mobile-container" >
+
+                    <block  class="Magento\Framework\View\Element\Template"
+                            name="sacsi_link_location_mobile" as="sacsi_link_location_mobile"
+                            template="Magento_Theme::html/links/sacsi_link_location.phtml">
+                            <arguments>
+                                <argument name="showblockAs" xsi:type="string">modal</argument>
+                                <argument name="autoOpen" xsi:type="string">true</argument>
+                            </arguments>
+                    </block>
+
+                    <block  class="Magento\Customer\Block\Account\AuthorizationLink"
+                            name="sacsi_link_micuenta_mobile" as="sacsi_link_micuenta_mobile"
+                            template="Magento_Theme::html/links/sacsi_link_micuenta.phtml">
+
+                            <block class="Magento\Customer\Block\Form\Login" name="customer_form_login_sacsi_mobile" template="Magento_Theme::html/form/login.phtml">
+                                <arguments>
+                                    <argument name="login_button_view_model" xsi:type="object">Magento\Customer\ViewModel\LoginButton</argument>
+                                </arguments>
+                            </block>
+                    </block>
+                </container>
+
+            </block>
+        </referenceBlock>
+
+        <!-- menu desktop -->
+        <referenceContainer name="header-wrapper">
+            <container name="sacsi_desktop_container" as="sacsi_desktop_container" label="Sacsi desktop menu" htmlTag="div" htmlClass="sacsi-desktop-container" before="top.search">
+                <block  class="Magento\Framework\View\Element\Template"
+                        name="sacsi.top.links" as="sacsi.top.links"
+                        template="Magento_Theme::html/sacsi_links.phtml">
+
+                        <block  class="Magento\Framework\View\Element\Template"
+                                name="sacsi_link_location" as="sacsi_link_location"
+                                template="Magento_Theme::html/links/sacsi_link_location.phtml">
+                            <arguments>
+                                <argument name="showblockAs" xsi:type="string">dropdown</argument>
+                                <argument name="autoOpen" xsi:type="string">false</argument>
+                            </arguments>
+                        </block>
+
+                        <block  class="Magento\Customer\Block\Account\AuthorizationLink"
+                                name="sacsi_link_micuenta" as="sacsi_link_micuenta"
+                                template="Magento_Theme::html/links/sacsi_link_micuenta.phtml">
+
+                                <block class="Magento\Customer\Block\Form\Login" name="customer_form_login_sacsi" template="Magento_Theme::html/form/login.phtml">
+                                    <arguments>
+                                        <argument name="login_button_view_model" xsi:type="object">Magento\Customer\ViewModel\LoginButton</argument>
+                                    </arguments>
+                                </block>
+                        </block>
+
+                        <block  class="Magento\Framework\View\Element\Template"
+                                name="sacsi_link_cart" as="sacsi_link_cart"
+                                template="Magento_Theme::html/links/sacsi_link_cart.phtml">
+                                <referenceBlock name="minicart" template="Magento_Theme::html/cart/minicart.phtml">
+                                </referenceBlock>
+                        </block>
+                </block>
+            </container>
+        </referenceContainer>
+
+    </body>
+</page>

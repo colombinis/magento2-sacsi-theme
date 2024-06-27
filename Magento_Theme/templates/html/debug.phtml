@@ -1,0 +1,12 @@
+<?php
+//  <?php if ($block->getChildBlock('grid.export')):
+    // $block->getChildHtml() -> all childs
+    // $block->getChildHtml('authorization-link') -> specific child
+    // $this->getLayout()->createBlock("Magento\Customer\Block\Form\Login")->setTemplate("Magento_Customer::form/login.phtml")->toHtml();
+$titlefromxml = $block->getData('titlefromxml');
+$idauto = str_replace(['"'," ","/"],"",$titlefromxml);
+?>
+
+<div id="<?= $idauto; ?>">
+    <?= $block->escapeHtml(__('Titulo from argument: %1', $titlefromxml)) ?>
+</div>

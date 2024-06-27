@@ -1,0 +1,75 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Agregar al carrito'); ?>
+<?php if ($_product->isSaleable()) :?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()) :?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= $block->escapeHtml(__('')) ?></span></label>
+            <div class="control-custom">
+                <button class="decrement" disabled onclick="decrementQty(event)">-</button>
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       min="0"
+                       value="<?= $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= $block->escapeHtmlAttr(__('')) ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                />
+                <button class="increment" onclick="incrementQty(event)">+</button>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                    class="action primary tocart addtocart-custom-button"
+                    id="product-addtocart-button" disabled>
+                <span><?= $block->escapeHtml($buttonTitle) ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+    <p class="last-items-message">¡Últimas unidades!</p>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<script>
+    function incrementQty(event) {
+        event.preventDefault();
+        let qtyInput = document.getElementById('qty');
+        qtyInput.stepUp(1);
+        updateDecrementButtonState(qtyInput.value);
+    }
+
+    function decrementQty(event) {
+        event.preventDefault();
+        let qtyInput = document.getElementById('qty');
+        qtyInput.stepDown(1);
+        updateDecrementButtonState(qtyInput.value);
+    }
+    
+    function updateDecrementButtonState(quantity) {
+        let decrementButton = document.querySelector('.decrement');
+        if (quantity <= 1) {
+            decrementButton.disabled = true;
+        } else {
+            decrementButton.disabled = false;
+        }
+    }
+</script>

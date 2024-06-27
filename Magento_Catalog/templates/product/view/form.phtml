@@ -1,0 +1,116 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php $_helper = $this->helper(Magento\Catalog\Helper\Output::class); ?>
+<?php $_product = $block->getProduct(); ?>
+
+<div class="product-add-form">
+    <form data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
+          action="<?= $block->escapeUrl($block->getSubmitUrl($_product)) ?>" method="post"
+          id="product_addtocart_form"<?php if ($_product->getOptions()) :?> enctype="multipart/form-data"<?php endif; ?>>
+        <input type="hidden" name="product" value="<?= (int)$_product->getId() ?>" />
+        <input type="hidden" name="selected_configurable_option" value="" />
+        <input type="hidden" name="related_product" id="related-products-field" value="" />
+        <input type="hidden" name="item"  value="<?= (int)$block->getRequest()->getParam('id') ?>" />
+        <?= $block->getBlockHtml('formkey') ?>
+        <?= $block->getChildHtml('form_top') ?>
+        <?php if (!$block->hasOptions()) :?>
+            <?= $block->getChildHtml('product_info_form_content') ?>
+        <?php else :?>
+            <?php if ($_product->isSaleable() && $block->getOptionsContainer() == 'container1') :?>
+                <?= $block->getChildChildHtml('options_container') ?>
+            <?php endif;?>
+        <?php endif; ?>
+
+        <?php if ($_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2') :?>
+            <?= $block->getChildChildHtml('options_container') ?>
+        <?php endif;?>
+        <?= $block->getChildHtml('form_bottom') ?>
+    </form>
+</div>
+
+<div class="pdp-info-block-container">
+    <div>
+        <!-- <p>Icono ubicacion</p> -->
+        <span class="location"></span>
+    </div>
+    <div class="column-custom">
+        <p class="info-block-title">Retiro GRATIS en la tienda</p>
+        <a>Av. Dorrego 242, Villa Crespo, CABA</a>
+    </div>
+</div>
+<div class="pdp-info-block-container">
+    <div>
+        <span class="truck" aria-hidden="true"></span>
+        <!-- <p>Icono camion</p> -->
+    </div>
+    <div class="column-custom">
+        <p class="info-block-title">Envíos a todo el país</p>
+        <a>Ver costos y métodos de envío</a>
+    </div>
+</div>
+<div class="pdp-info-block-container">
+    <div>
+    <span class="question-icon" aria-hidden="true"></span>
+        <!-- <p>Icono pregunta</p> -->
+    </div>
+    <div class="column-custom">
+        <p class="info-block-title">¿Dudas o consultas?</p>
+        <a>Chateá con un asesor</a>
+    </div>
+</div>
+<div class="pdp-info-block-container">
+    <div>
+        <span class="info-icon"></span>
+        <!-- <p>Icono giro</p> -->
+    </div>
+    <div class="column-custom">
+        <p class="info-block-title">Cambios y devoluciones</p>
+        <a>Ver condiciones</a>
+    </div>
+</div>
+<div class="warranty-container">
+    <div class="warranty-top-container">
+        <div>
+            <span class="document-icon"></span>
+        </div>
+        <div>
+            <p class="info-block-title column-custom-unique">Garantía del vendedor</p>
+        </div>
+        <input type="checkbox" id="toggle-warranty" class="toggle-checkbox">
+        <label for="toggle-warranty" class="circle-down"></label>
+    </div>
+    <input type="checkbox" id="show-warranty" class="toggle-checkbox">
+    <div class="warranty-bottom-container">
+        <p class="info-block-title">
+            La garantía depende del fabricante. Si te encontras con algún problema de falla escríbenos indicando la falla
+            a postventa@web-full.com.ar, WhatsApp +54 9 116692-2276 o acercándote a nuestra Sucursal Av. Dorrego 242, Villa
+            Crespo, CABA.
+        </p>
+        <p class="info-block-title">
+            Para más info <a href="">click acá</a>
+        </p>
+    </div>
+</div>
+
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=priceBox][data-price-box=product-id-<?= $block->escapeHtml($_product->getId()) ?>]": {
+            "priceBox": {
+                "priceConfig":  <?= /* @noEscape */ $block->getJsonConfig() ?>
+            }
+        }
+    }
+</script>

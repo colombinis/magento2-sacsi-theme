@@ -1,0 +1,91 @@
+<?php
+/**
+ * @var \Magento\Customer\Block\Account\AuthorizationLink $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$scope_id= hrtime(true);
+$welcomeMessage="Ingresa a tu cuenta";
+?>
+
+<?php if(!$block->isLoggedIn()): ?>
+    <div data-block="dropdown<?=$scope_id?>" class="minicart-wrapper">
+        <a href="#" class="dropdown-button<?=$scope_id?> action" data-trigger="trigger<?=$scope_id?>" >
+            <span class="my-account"></span><span class="text">Mi&nbsp;Cuenta</span>
+        </a>
+    </div>
+    <div class="block block-minicart"
+        data-mage-init='{
+            "dropdownDialog": {
+                "appendTo": "[data-block=dropdown<?=$scope_id?>]",
+                "triggerTarget":"[data-trigger=trigger<?=$scope_id?>]",
+                "timeout": 2000,
+                "closeOnMouseLeave": true,
+                "closeOnEscape": true,
+                "triggerClass": "active",
+                "parentClass": "active",
+                "buttons": []
+            }
+        }'>
+        <div class="minicart-content-wrapper">
+            <?= $block->getChildHtml();?>
+        </div>
+    </div>
+<?php else: ?>
+    <div data-block="logged_dropdown<?=$scope_id?>" class="minicart-wrapper">
+        <a href="#" class="logged_dropdown-button<?=$scope_id?> action" data-trigger="logged_trigger<?=$scope_id?>" >
+            <span class="my-account"></span>
+            <span class="text" data-bind="scope: 'customer'">
+                <!-- ko if: customer().fullname  -->
+                <span class="logged-in"
+                    data-bind="text: new String('<?= $escaper->escapeHtml(__('Hola, %1! :)', '%1')) ?>').
+                    replace('%1', customer().fullname)">
+                </span>
+                <!-- /ko -->
+                <!-- ko ifnot: customer().fullname  -->
+                <span class="not-logged-in"
+                    data-bind="text: '<?= $escaper->escapeHtml($welcomeMessage) ?>'"></span>
+                <?= $block->getBlockHtml('header.additional') ?>
+                <!-- /ko -->
+            </span>
+        </a>
+    </div>
+    <div class="block block-minicart"
+        data-mage-init='{
+            "dropdownDialog": {
+                "appendTo": "[data-block=logged_dropdown<?=$scope_id?>]",
+                "triggerTarget":"[data-trigger=logged_trigger<?=$scope_id?>]",
+                "timeout": 2000,
+                "closeOnMouseLeave": true,
+                "closeOnEscape": true,
+                "triggerClass": "active",
+                "parentClass": "active",
+                "buttons": []
+            }
+        }'>
+        <div class="minicart-content-wrapper">
+            <ul class="account-user-menu">
+                <li><a href="<?php echo $this->getUrl('customer/account/');?>" ><span class="text">Mi cuenta</span><span class="icon-home"></a></span></li>
+                <li><a href="<?php echo $this->getUrl('sales/order/history/');?>" ><span class="text">Mis Pedidos</span><span class="icon-shopping_bag"></a></span></li>
+                <li><a href="<?php echo $this->getUrl('customer/account/edit/');?>" ><span class="text">Mis Datos</span><span class="my-account"></a></span></li>
+                <li><a href="<?php echo $this->getUrl('whislist/');?>" ><span class="text">Favoritos</span><span class="icon-atomo_favorite"></a></span></li>
+                <li><a href="<?php echo $this->getUrl('customer/account/logout/');?>" ><span class="text">Salir</span><span class="icon-charm_sign-out"></a></span></li>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php // phpcs:ignore Magento2.Legacy.PhtmlTemplate ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "customer": {
+                        "component": "Magento_Customer/js/view/customer"
+                    }
+                }
+            }
+        }
+    }
+</script>

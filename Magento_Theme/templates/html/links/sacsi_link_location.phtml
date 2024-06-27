@@ -1,0 +1,175 @@
+<?php
+// values: dropdown | modal
+$showblockAs = $block->getData('showblockAs');
+$autoOpen = $block->getData('autoOpen') ?? 'false';
+
+$scope_id= $showblockAs . hrtime(true);
+?>
+
+<?php if ($showblockAs =='modal'):?>
+    <div id="sacsi-modal<?=$scope_id?>" class="block-sacsi-links-link">
+        <a href="#" class="action" data-trigger="trigger<?=$scope_id?>">
+            <span class="location"></span><span class="text location-text"><?= $block->escapeHtml(__('Tu&nbsp;ubicaci&oacute;n')) ?></span>
+        </a>
+        <div id="wrapper-modal-content">
+            <div class="content">
+                <div class="block block-location">
+                    <div >
+                        <h2><?= $block->escapeHtml(__('Hola! :)')) ?></h2>
+                        <h2><?= $block->escapeHtml(__('Ingresa tu ubicaci&oacute;n')) ?></h2>
+                        <p>
+                        <?= $block->escapeHtml(__('Para ver las mejores opciones de env&iacute;o o retiro seg&uacute;n tu ubicaci&oacute;n')) ?>
+                        </p>
+                    </div>
+                    <div class="d-flex">
+                        <input type="text" id="codigopostal<?= $scope_id;?>" name="codigopostal" placeholder="Ingres&aacute; C&oacute;digo postal" />
+                        <button class="action primary" id="btn-guardar-codigopostal<?= $scope_id;?>"><?= $block->escapeHtml(__('Guardar')) ?></button>
+                    </div>
+                    <a class="reference-oca" href="https://www.oca.com.ar/Busquedas/CodigosPostales" target="_blank" ><?= $block->escapeHtml(__('No conozco mi c&oacute;digo postal')) ?></a>
+                    <div class="d-flex" style="justify-content: space-around;margin-top: 10px;">
+                        <figure>
+                            <img src="<?php echo $block->getViewFileUrl('icons/iconos-moto.png'); ?>" alt="<?= $block->escapeHtml(__('Llega Mañana')) ?>" />
+                            <figcaption><?= $block->escapeHtml(__('Llega Mañana')) ?></figcaption>
+                        </figure>
+                        <figure>
+                        <img src="<?php echo $block->getViewFileUrl('icons/iconos-paquete.png'); ?>" alt="<?= $block->escapeHtml(__('Retiralo hoy')) ?>" />
+                            <figcaption><?= $block->escapeHtml(__('Retiralo hoy')) ?></figcaption>
+                        </figure>
+                        <figure>
+                        <img src="<?php echo $block->getViewFileUrl('icons/iconos-tienda.png'); ?>" alt="<?= $block->escapeHtml(__('Envio Gratis')) ?>" />
+                            <figcaption><?= $block->escapeHtml(__('Envio Gratis')) ?></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/modal"
+    ],function($, modal) {
+
+        var options = {
+            type: 'popup',
+            title: '<?= $block->escapeHtml(__('Tu&nbsp;ubicaci&oacute;n')) ?>',
+            buttons: []
+        };
+
+        var popup = modal(options, $('#wrapper-modal-content'));
+
+        showModalIfFirstTime();
+
+        $("[data-trigger=trigger<?=$scope_id?>]").click(function() {
+            popup.openModal();
+        });
+
+        function showModalIfFirstTime(){
+            let autoOpen = '<?= $autoOpen ?>';
+            let sacsi_location = window.localStorage.getItem('sacsi_location');
+            if(autoOpen=='true' && !sacsi_location){
+                popup.openModal();
+            }
+        }
+    });
+</script>
+
+<?php endif; ?>
+
+<?php if ($showblockAs =='dropdown'):?>
+    <div data-block="dropdown<?=$scope_id?>" class="minicart-wrapper">
+        <a href="#" class="dropdown-button<?=$scope_id?> action" data-trigger="trigger<?=$scope_id?>" >
+        <span class="location"></span><span class="text location-text"><?= $block->escapeHtml(__('Tu&nbsp;ubicaci&oacute;n')) ?></span>
+        </a>
+    </div>
+    <div class="block block-minicart"
+        data-mage-init='{
+            "dropdownDialog": {
+                "appendTo": "[data-block=dropdown<?=$scope_id?>]",
+                "triggerTarget":"[data-trigger=trigger<?=$scope_id?>]",
+                "timeout": 2000,
+                "closeOnMouseLeave": true,
+                "closeOnEscape": true,
+                "triggerClass": "active",
+                "parentClass": "active",
+                "autoOpen": <?= $autoOpen ?>,
+                "buttons": []
+            }
+        }'>
+        <div class="minicart-content-wrapper">
+            <div class="block block-location">
+                <div class="d-flex">
+                    <input type="text" id="codigopostal<?= $scope_id;?>" name="codigopostal" placeholder="Ingres&aacute; C&oacute;digo postal" />
+                    <button class="action primary" id="btn-guardar-codigopostal<?= $scope_id;?>">Guardar</button>
+                </div>
+                <a class="reference-oca" href="https://www.oca.com.ar/Busquedas/CodigosPostales" target="_blank" >No conozco mi c&oacute;digo postal</a>
+
+            </div>
+        </div>
+    </div>
+
+<?php endif; ?>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Customer/js/customer-data'
+        ], function ($,customerData) {
+            $(document).ready(function(){
+
+                updateLocationLabels();
+
+                $('#btn-guardar-codigopostal<?= $scope_id;?>').on('click',function(event){
+                    let codigopostal = $('#codigopostal<?= $scope_id;?>').val();
+                    if(codigopostal){
+                        let _self = $(this);
+                        window.localStorage.setItem('sacsi_location',codigopostal);
+                        closeModalOrdropdown(_self,'<?= $showblockAs; ?>');
+                        updateLocationLabels();
+                    }
+                });
+
+            });
+
+            function closeModalOrdropdown(_el, m_o_d){
+                if(m_o_d === 'modal'){
+                    _el.closest(".modal-popup").find('.action-close').trigger( "click" );
+                }
+                if(m_o_d === 'dropdown'){
+                    _el.closest(".minicart-wrapper").removeClass("active");
+                }
+            }
+
+            function updateLocationLabels(){
+                let location_labels = $('.location-text');
+                let sacsi_location = window.localStorage.getItem('sacsi_location');
+                location_labels.each(function(index,element){
+                    if(sacsi_location){
+                        $(element).text("Estas en: " + getLocationByCode(sacsi_location));
+                    }
+                });
+            }
+
+            function getLocationByCode(code) {
+                const location = _locations[code];
+                return location || code;
+            }
+
+            if( typeof window._locations == "undefined"){
+                window._locations = [];
+                $.ajax({
+                    'url': "<?php echo $block->getViewFileUrl('assets/locations.json'); ?>",
+                    'dataType': "json",
+                    'success': function(data) {
+                        window._locations = data;
+                    }
+                });
+            }
+
+        });
+
+
+</script>
+

@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Top menu for store
+ *
+ * @var $block \Magento\Theme\Block\Html\Topmenu
+ */
+
+$columnsLimit = $block->getColumnsLimit() ?: 0;
+$_menuHtml = $block->getHtml('level-top', 'submenu', $columnsLimit)
+?>
+
+<nav id="magento-menu" class="navigation" data-action="navigation">
+    <ul data-mage-init='{"menu":{"responsive":true, "expanded":false, "position":{"my":"left top","at":"left bottom"}}}'>
+        <?= /* @noEscape */ $_menuHtml?>
+        <?= $block->getChildHtml() ?>
+    </ul>
+</nav>
+<div id="megamenu">
+   <div id=menu-extra>
+       <div>
+            <a id="megamenu-trigger" href="#" onclick="jQuery(this).closest('#megamenu').toggleClass('active');return false;">
+                <span class="icon-atomo_menu"></span><span class="text"><?= $block->escapeHtml(__('Categorias')) ?></span>
+            </a>
+        </div>
+        <?php
+            echo $this->getLayout()
+            ->createBlock('Magento\Cms\Block\Block')
+            ->setBlockId('menu-user')
+            ->toHtml();
+        ?>
+    </div>
+    <ul id="megamenu-categories">
+        <?= $_menuHtml ?>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    require([
+        "jquery"
+    ],function($) {
+        $(document).ready(function(){
+            let sacsi_menu = $('#megamenu-categories');
+            sacsi_menu.find('.level0.parent > a').on('click mouseenter', function(e){
+                e.preventDefault();
+                $('.level0.parent').removeClass('active');
+                $(this).closest('.level0.parent').addClass('active');
+            });
+
+        });
+    });
+</script>

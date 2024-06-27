@@ -1,0 +1,139 @@
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+}
+
+//
+//  Mobile
+//  _____________________________________________
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .nav-sections-item-content {
+        // background-color: red;
+        #magento-menu{
+            display: block;
+        }
+        #megamenu {
+            display: none;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .nav-sections-item-content {
+        position: absolute;
+        width: 100%;
+        #magento-menu{
+            display: none;
+        }
+        // Mega Menu magento
+        #megamenu {
+            position: relative;
+            display: inline-block;
+            background-color: white;
+            width: 100%;
+            ul{
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            a {
+                text-decoration: none;
+                color:#646464;
+                font-size: 13px;
+            }
+
+
+
+            #megamenu-categories {
+                display: none;
+            }
+        }
+
+        #megamenu.active #megamenu-categories{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+        }
+
+        #megamenu-categories{
+            max-width: 290px;
+            width: 430px;
+            height:500px;
+            position:relative;
+            background-color: white;
+            box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
+
+            .level0.parent .level0.submenu{
+                display: none;
+            }
+
+            li a.level-top {
+                text-transform: uppercase;
+                position: relative;
+                display: block;
+            }
+
+            li a.level-top:after {
+                content: '>';
+                position: absolute;
+                left:95%;
+                top:0px;
+            }
+
+            .level0.parent.active .level0.submenu{
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(186px, 1fr));
+                gap:2rem;
+                padding: 0 20px;
+                height:500px;
+            }
+
+            .level0{
+                padding: 10px;
+                margin: 0;
+                &.level0.submenu{
+                    width: calc(~'100vw - 430px');;
+                    position: absolute;
+                    top:0;
+                    left: 100%;
+                    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
+                    background-color: white;
+                }
+
+                .level1.parent {
+                    max-height: 200px;
+                    overflow: auto;
+                    display: block;
+                }
+
+                .level1.parent > a{
+                    font-weight: bold;
+                }
+            }
+        }
+
+        //Menu cms id=menu-user
+        #menu-extra {
+            display: flex;
+            margin-right:20px;
+            & > div {
+                display: flex;
+                margin-right:20px;
+                & > div {
+                    display: flex;
+                    margin-right:20px;
+
+                }
+            }
+        }
+    }
+}

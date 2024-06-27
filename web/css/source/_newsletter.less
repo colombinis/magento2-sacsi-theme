@@ -1,0 +1,198 @@
+/* Estilos comunes para todas las pantallas */
+.newsletter-section {
+    background-image: url('../images/newsletter_fondo.svg');
+    background-size: cover;
+    background-position: center;
+    color: #FFFFFF;
+    padding: 25px 20px;
+}
+
+.newsletter-content {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1280px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: auto;
+}
+
+.newsletter-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 48%;
+}
+
+.contact-column {
+    align-items: flex-end;
+}
+
+.newsletter-column h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.subscribe-form {
+    display: flex;
+    align-items: center;
+}
+
+.subscribe-form input {
+    width: 70%;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 50px;
+    border: none;
+}
+
+.subscribe-form button {
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.subscribe-form button:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contact-info.title {
+    padding-right: 3.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.contact-item p {
+    margin: 0;
+}
+
+.contact-item img {
+    margin-right: 10px;
+}
+
+.social-icons a {
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.social-icons img {
+    width: 30px;
+}
+
+.social-icons img:hover {
+  filter: invert(1);
+}
+
+.social-footer-mobile {
+    display: none;
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 767px) {
+
+    .newsletter-section {
+        background-size: auto 65%;
+        padding: 25px 0;
+    }
+
+    .newsletter-content {
+        flex-direction: column;
+    }
+
+    .newsletter-column {
+        width: 100%;
+    }
+
+    .footer-columns .column:last-child {
+        border-bottom: 1px solid #E0E0E0;
+    }
+
+    .suscribe-column {
+        align-items: center;
+    }
+
+    .suscribe-column h2 {
+        font-size: revert;
+    }
+
+    .subscribe-form input {
+        display: none;
+    }
+
+    .subscribe-form button {
+        padding: 10px 60px;
+        font-size: larger;
+        margin: 10px 0;
+    }
+
+    .contact-column {
+        display: none;
+    }
+
+    .contact-info.title {
+        padding-right: 0;
+    }
+
+    .copyright .data-fiscal {
+        display: none;
+    }
+
+    .social-footer-mobile {
+        color: #646464;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .social-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0;
+    }
+
+    .social-footer h2 {
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .social-footer a {
+        text-decoration: none;
+    }
+
+    .data-fiscal-mobile img {
+        width: 47px;
+        height: 63px;
+        display: block;
+    }
+
+    .social-footer-icons {
+        padding-top: 20px;
+    }
+
+    .social-footer-icons img {
+        width: 40px;
+    }
+
+    .social-footer-icons img:hover {
+        filter: invert(1);
+    }
+}

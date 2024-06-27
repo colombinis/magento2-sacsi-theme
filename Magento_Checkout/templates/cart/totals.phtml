@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Shopping cart totals template
+ * @var $block \Magento\Checkout\Block\Cart\Totals
+ */
+?>
+<div id="cart-totals" class="cart-totals" data-bind="scope:'block-totals'">
+    <!-- <p>11111</p> -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script>
+        // Select all elements with class 'price'
+        var priceElements = document.querySelectorAll(".price");
+        console.log('priceElements is: ', priceElements);
+        priceElements.forEach(function(el) {
+            // Get the current text content
+            var priceText = el.innerHTML;
+            
+            // Replace 'ARS' with '$'
+            var newPriceText = priceText.replace('ARS', '$');
+            
+            // Set the new text content back to the element
+            el.innerHTML = newPriceText;
+        });
+    </script>
+    <script type="text/x-magento-init">
+        {
+            "#cart-totals": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+            }
+        }
+    </script>
+    <!-- <p>22222</p> -->
+</div>

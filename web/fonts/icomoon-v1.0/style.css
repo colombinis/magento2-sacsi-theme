@@ -1,0 +1,164 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?bj66w');
+  src:  url('fonts/icomoon.eot?bj66w#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?bj66w') format('truetype'),
+    url('fonts/icomoon.woff?bj66w') format('woff'),
+    url('fonts/icomoon.svg?bj66w#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home:before {
+  content: "\e900";
+  color: #646464;
+}
+.icon-package-delivery-box-13-svgrepo-com:before {
+  content: "\e901";
+}
+.icon-motorcycle-delivery-single-box-svgrepo-com:before {
+  content: "\e902";
+}
+.icon-subject:before {
+  content: "\e903";
+  color: #636363;
+}
+.icon-question:before {
+  content: "\e904";
+  color: #636363;
+}
+.icon-package_2:before {
+  content: "\e905";
+  color: #636363;
+}
+.icon-my_location:before {
+  content: "\e906";
+  color: #636363;
+}
+.icon-local_shipping:before {
+  content: "\e907";
+  color: #636363;
+}
+.icon-keyboard_arrow_down:before {
+  content: "\e908";
+  color: #636363;
+}
+.icon-info:before {
+  content: "\e909";
+  color: #636363;
+}
+.icon-Frame-17:before {
+  content: "\e90a";
+  color: #636363;
+}
+.icon-edit_square:before {
+  content: "\e90b";
+  color: #636363;
+}
+.icon-description:before {
+  content: "\e90c";
+  color: #636363;
+}
+.icon-delete:before {
+  content: "\e90d";
+  color: #636363;
+}
+.icon-credit_card:before {
+  content: "\e90e";
+  color: #636363;
+}
+.icon-confirmation_number:before {
+  content: "\e90f";
+  color: #636363;
+}
+.icon-close:before {
+  content: "\e910";
+  color: #636363;
+}
+.icon-check_box:before {
+  content: "\e911";
+  color: #636363;
+}
+.icon-charm_sign-out:before {
+  content: "\e912";
+}
+.icon-cached:before {
+  content: "\e913";
+  color: #636363;
+}
+.icon-build:before {
+  content: "\e914";
+  color: #636363;
+}
+.icon-atomo_visibility:before {
+  content: "\e915";
+  color: #636363;
+}
+.icon-atomo_tune:before {
+  content: "\e916";
+  color: #636363;
+}
+.icon-atomo_swap_vert:before {
+  content: "\e917";
+  color: #636363;
+}
+.icon-atomo_menu:before {
+  content: "\e918";
+  color: #636363;
+}
+.icon-atomo_favorite:before {
+  content: "\e919";
+  color: #636363;
+}
+.icon-atomo_add_shopping_cart:before {
+  content: "\e91a";
+  color: #636363;
+}
+.icon-article:before {
+  content: "\e91b";
+  color: #636363;
+}
+.icon-add:before {
+  content: "\e91c";
+  color: #636363;
+}
+.icon-atomo_search:before {
+  content: "\eaeb";
+  color: #636363;
+}
+.icon-atomo_person:before {
+  content: "\eaec";
+  color: #636363;
+}
+.icon-atomo_ordenar2:before {
+  content: "\eaed";
+  color: #636363;
+}
+.icon-atomo_ordenar:before {
+  content: "\eaee";
+  color: #7d7d7d;
+}
+.icon-atomo_location:before {
+  content: "\eaef";
+  color: #636363;
+}
+.icon-atomo_cart:before {
+  content: "\eaf0";
+  color: #636363;
+}
